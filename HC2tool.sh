@@ -1,6 +1,4 @@
 #!/bin/bash
-#!/usr/local/bin/dialog
-
 
 selectFunc(){
 	dialog --title "Function list" --backtitle "### HC2Tool ### \nAny question please connect with zhengzhi@zeorzero.cn" --clear --menu \
@@ -107,50 +105,69 @@ changePasswd(){
 OAReplaySwitch(){
 	dialog --title "OA-Replay Switch" --backtitle "### HC2Tool ### Any question please connect with zhengzhi@zeorzero.cn" --clear --yesno \
 	"If you need to open OA-Replay, choose yes!" 10 50
-	echo "ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'" >>openSwitch.txt
-	echo "#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'" >>closeSwitch.txt
-	openSwitch=$(cat ./openSwitch.txt)
-	closeSwitch=$(cat ./closeSwitch.txt)
-	rm openSwitch.txt
-	rm closeSwitch.txt
-	# echo ${openSwitch}
-	# echo ${closeSwitch}
-	# openSwitch="ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'"
-	# yes is 0, no is 1,esc is 255
 	result=$?
 	if [ $result -eq 0 ];then
-		echo ${openSwitch}
-		adb shell sed '15c, ${closeSwitch}' /etc/systemd/system/zz_pathplanning.service
-		adb reboot
+		cat <<EOF > zz_pathplanning.service
+[Unit]
+Description=zerozero path planning neo service
+After=zz_rovio_hc2.service
+PartOf=qmmf-server.service
+
+[Service]
+CPUAffinity=2 3
+Restart=always
+## Discarded: use ">>" record the log
+#ExecStartPre=-/bin/mkdir -p /home/root/application/latest/log/latest/path_planning
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay >> /home/root/application/latest/log/latest/path_planning/path_planning.std.log'
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml >> /home/root/application/latest/log/latest/path_planning/path_planning.std.log'
+
+## Use ZZLOG to record the log
+ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'
+
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml'
+CPUQuota=60%
+
+[Install]
+WantedBy=multi-user.target
+EOF
+		# cat zz_pathplanning.service
+		adb push zz_pathplanning.service /etc/systemd/system/
+		adb shell chmod 664 /etc/systemd/system/zz_pathplanning.service
+		rm zz_pathplanning.service
 	elif [ $result -eq 1 ]; then
-		adb shell sed '15c, ${closeSwitch}' /etc/systemd/system/zz_pathplanning.service
-		adb reboot
+		cat <<EOF > zz_pathplanning.service
+[Unit]
+Description=zerozero path planning neo service
+After=zz_rovio_hc2.service
+PartOf=qmmf-server.service
+
+[Service]
+CPUAffinity=2 3
+Restart=always
+## Discarded: use ">>" record the log
+#ExecStartPre=-/bin/mkdir -p /home/root/application/latest/log/latest/path_planning
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay >> /home/root/application/latest/log/latest/path_planning/path_planning.std.log'
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml >> /home/root/application/latest/log/latest/path_planning/path_planning.std.log'
+
+## Use ZZLOG to record the log
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'
+
+ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml'
+CPUQuota=60%
+
+[Install]
+WantedBy=multi-user.target
+EOF
+		# cat zz_pathplanning.service
+		adb push zz_pathplanning.service /etc/systemd/system/
+		adb shell chmod 664 /etc/systemd/system/zz_pathplanning.service
+		rm zz_pathplanning.service
 	fi
-}		
+}
 
 while [ true ]; do
 	selectFunc
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
