@@ -9,8 +9,8 @@ Dialog模块安装
 - Macos系统
     1. 安装homebrew：  
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
-    2. 安装dialog：  
-    `brew install dialog `
+    1. 安装dialog：  
+`brew install dialog `
 - Linux系统
     1. 安装dialog：  
 `yum install dialog`
@@ -21,7 +21,7 @@ adb模块安装
     1. 安装homebrew：  
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
     2. 安装adb：  
-    `brew cask install android-platform-tools `
+`brew cask install android-platform-tools `
 - Linux系统
     1. 安装adb：  
 `sudo apt-get install android-tools-adb`
