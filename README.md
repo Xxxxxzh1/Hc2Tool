@@ -13,7 +13,7 @@ Dialog模块安装
 `brew install dialog `
 - Linux系统
     1. 安装dialog：  
-`yum install dialog`
+`sudo apt-get install dialog`
 
 adb模块安装
 ----
