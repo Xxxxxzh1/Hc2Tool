@@ -11,7 +11,7 @@ Dialog模块安装
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
     1. 安装dialog：  
 `brew install dialog `
-- Linux系统
++  Linux系统
     1. 安装dialog：  
 `sudo apt-get install dialog`
 
@@ -22,14 +22,14 @@ adb模块安装
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
     2. 安装adb：  
 `brew cask install android-platform-tools `
-- Linux系统
++ Linux系统
     1. 安装adb：  
 `sudo apt-get install android-tools-adb`
 
 脚本使用
 ----
 - 飞机开机状态下连接电脑
-- 到脚本所在路径下运行./HC2tool.sh，选择需要的功能，当前已支持的功能：
++ 到脚本所在路径下运行./HC2tool.sh，选择需要的功能，当前已支持的功能：
     1. 查询飞机Wi-Fi名称及密码
     2. 查询飞机Ipk和镜像
     3. 查询飞机云台和声呐版本

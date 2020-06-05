@@ -32,7 +32,7 @@ selectFunc(){
 		;;
 		8) OAReplaySwitch
 		;;
-		9) exit 255
+		9) exit
 		;;
 	esac
 }
