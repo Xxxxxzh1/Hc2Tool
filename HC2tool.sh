@@ -114,7 +114,7 @@ After=zz_rovio_hc2.service
 PartOf=qmmf-server.service
 
 [Service]
-CPUAffinity=2 3
+CPUAffinity=0 1
 Restart=always
 ## Discarded: use ">>" record the log
 #ExecStartPre=-/bin/mkdir -p /home/root/application/latest/log/latest/path_planning
@@ -124,7 +124,7 @@ Restart=always
 ## Use ZZLOG to record the log
 ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'
 
-#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml'
+#ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml --record 1'
 CPUQuota=60%
 
 [Install]
@@ -142,7 +142,7 @@ After=zz_rovio_hc2.service
 PartOf=qmmf-server.service
 
 [Service]
-CPUAffinity=2 3
+CPUAffinity=0 1
 Restart=always
 ## Discarded: use ">>" record the log
 #ExecStartPre=-/bin/mkdir -p /home/root/application/latest/log/latest/path_planning
@@ -152,7 +152,7 @@ Restart=always
 ## Use ZZLOG to record the log
 #ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml -f /media/internal/DCIM/path_planning.replay'
 
-ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml'
+ExecStart=/bin/bash -c 'sleep 3 && home/root/application/latest/path_planning/path_planning --config /hover/path_planning/path_planning.prototxt --calibration /persist/stereo.yaml --record 1'
 CPUQuota=60%
 
 [Install]
